@@ -6,6 +6,7 @@ import { useTheme } from './ThemeProvider';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import { db } from '~/lib/dexie';
 
 const chatGroups = [
   { id: '1', name: 'React Basics' },
@@ -27,6 +28,13 @@ export const ChatSidebar = () => {
     } else {
       setTheme('dark');
     }
+  };
+
+  const handleCreateThread = () => {
+    const threadId = db.createThread(textInput);
+
+    setDialogIsOpen(false);
+    setTextInput('');
   };
 
   return (
@@ -51,7 +59,7 @@ export const ChatSidebar = () => {
             <Button variant="secondary" onClick={() => setDialogIsOpen(false)}>
               Cancel
             </Button>
-            <Button>Create</Button>
+            <Button onClick={handleCreateThread}>Create</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

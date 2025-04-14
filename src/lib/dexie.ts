@@ -22,6 +22,19 @@ class ChatDB extends Dexie {
       obj.updated_at = new Date();
     });
   }
+
+  async createThread(title: string) {
+    const id = crypto.randomUUID();
+
+    this.threads.add({
+      id,
+      title,
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
+
+    return id;
+  }
 }
 
 export const db = new ChatDB();
