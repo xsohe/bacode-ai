@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { db } from '~/lib/dexie';
+import { useLiveQuery } from 'dexie-react-hooks';
 
 const chatGroups = [
   { id: '1', name: 'React Basics' },
@@ -29,6 +30,8 @@ export const ChatSidebar = () => {
       setTheme('dark');
     }
   };
+
+  const threads = useLiveQuery(() => db.getAllThreads());
 
   const handleCreateThread = () => {
     const threadId = db.createThread(textInput);
@@ -75,10 +78,10 @@ export const ChatSidebar = () => {
             <SidebarGroupContent>
               <SidebarGroupLabel>Recent Chats</SidebarGroupLabel>
               <SidebarMenu>
-                {chatGroups.map((chat) => (
-                  <SidebarMenuItem key={chat.id}>
-                    <SidebarMenuButton onClick={() => setActiveChat(chat.id)} isActive={activeChat === chat.id}>
-                      {chat.name}
+                {threads?.map((thread) => (
+                  <SidebarMenuItem key={thread.id}>
+                    <SidebarMenuButton onClick={() => setActiveChat(thread.id)} isActive={activeChat === thread.id}>
+                      {thread.title}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
