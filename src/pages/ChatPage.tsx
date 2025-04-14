@@ -3,6 +3,7 @@ import { ChatMessage } from '~/components/ChatMessage';
 import { Button } from '~/components/ui/button';
 import { Textarea } from '~/components/ui/textarea';
 import ollama from 'ollama';
+import { ThoughtMessage } from '~/components/ThoughtMessage';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -12,6 +13,7 @@ type Message = {
 const ChatPage = () => {
   const [messageInput, setMessageInput] = useState('');
   const [streamedMessage, setStreamedMessage] = useState('');
+  const [thoughtMessage, setThoughtMessage] = useState('');
 
   const handleSubmit = async () => {
     const stream = await ollama.chat({
@@ -26,12 +28,31 @@ const ChatPage = () => {
     });
     alert('chat');
 
+    // output mode
+    // 1. mode mikir (thought) -> ketemu </think>
+    // 2. mode jawab (message)
+    let outputMode: 'think' | 'response' = 'think';
     let fullContent = '';
+    let thoughtContent = '';
+
     for await (const part of stream) {
       const messageContent = part.message.content;
-      fullContent += messageContent;
 
-      setStreamedMessage(fullContent);
+      if (outputMode === 'think') {
+        // akan menambahakan content messageThought jika tidak ada tag <think></think>
+        // hanya pesan yang tidak mengandung <think> atau </think> saja yang akan diproses dan dimasukkan ke thoughtContent.
+        if (!(messageContent.includes('<think>') || messageContent.includes('</think>'))) {
+          thoughtContent += messageContent;
+          setThoughtMessage(thoughtContent);
+        }
+
+        if (messageContent.includes('</think>')) {
+          outputMode = 'response';
+        }
+      } else {
+        fullContent += messageContent;
+        setStreamedMessage(fullContent);
+      }
     }
   };
 
@@ -56,6 +77,8 @@ const ChatPage = () => {
           {chatHistory.map((message, index) => (
             <ChatMessage key={index} role={message.role} content={message.content} />
           ))}
+
+          {!!thoughtMessage && <ThoughtMessage thought={thoughtMessage} />}
 
           {!!streamedMessage && <ChatMessage role="assistant" content={streamedMessage} />}
         </div>
