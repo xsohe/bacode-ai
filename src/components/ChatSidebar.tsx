@@ -9,14 +9,6 @@ import { Input } from './ui/input';
 import { db } from '~/lib/dexie';
 import { useLiveQuery } from 'dexie-react-hooks';
 
-const chatGroups = [
-  { id: '1', name: 'React Basics' },
-  { id: '2', name: 'AI Ethics' },
-  { id: '3', name: 'Climate Change' },
-  { id: '4', name: 'JavaScript Tips' },
-  { id: '5', name: 'Machine Learning Intro' },
-];
-
 export const ChatSidebar = () => {
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const { setTheme, theme } = useTheme();
