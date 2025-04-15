@@ -1,4 +1,4 @@
-# 🧠 Bacode AI
+# 🗣️ Bacode AI (Chat Local AI)
 
 A fully offline, streaming-capable AI chat UI powered by **Ollama Deepseek-r1 (1.5B parameters)**, built with **React (Vite)**, **TypeScript**, and styled using **Tailwind CSS + ShadCN**.
 
