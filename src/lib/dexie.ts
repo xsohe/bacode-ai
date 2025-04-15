@@ -78,6 +78,10 @@ class ChatDB extends Dexie {
 
     return messageId;
   }
+
+  async getMessageForThread(threadId: string) {
+    return this.messages.where('thread_id').equals(threadId).sortBy('created_at');
+  }
 }
 
 export const db = new ChatDB();
