@@ -85,12 +85,15 @@ const ChatPage = () => {
   }, [streamedMessage, thoughtMessage, messages]);
 
   return (
-    <div className="flex flex-col flex-1">
-      <header className="flex items-center px-4 h-16 border-b">
-        <h1 className="text-xl font-bold ml-4">AI Chat Dashboard</h1>
+    <div className="flex flex-col flex-1 bg-white dark:bg-zinc-800 text-black dark:text-white font-sans">
+      {/* Header */}
+      <header className="flex items-center px-6 h-20 border-b border-black bg-gray-100 dark:bg-zinc-900 dark:border-slate-800">
+        <h1 className="text-2xl font-bold tracking-wide">🗣️bacodeAI</h1>
       </header>
-      <main className="flex-1 overflow-auto p-4 w-full">
-        <div className="mx-auto space-y-4 pb-20 max-w-screen-md">
+
+      {/* Main */}
+      <main className="flex-1 overflow-auto p-6 w-full">
+        <div className="mx-auto space-y-6 pb-24 max-w-screen-md">
           {messages?.map((message) => (
             <ChatMessage key={message.id} role={message.role} content={message.content} thought={message.thought} />
           ))}
@@ -102,10 +105,18 @@ const ChatPage = () => {
           <div ref={scrollToBottomRef}></div>
         </div>
       </main>
-      <footer className="border-t p-4">
-        <div className="max-w-3xl mx-auto flex gap-2">
-          <Textarea className="flex-1" value={messageInput} onChange={(e) => setMessageInput(e.target.value)} placeholder="Type your message here..." rows={5} />
-          <Button onClick={handleSubmit} type="button">
+
+      {/* Footer */}
+      <footer className="border-t bg-gray-100 border-black p-6 dark:bg-zinc-900 shadow-brutal dark:border-slate-800">
+        <div className="max-w-3xl mx-auto flex gap-4">
+          <Textarea
+            className="flex-1 rounded-none border-2 lg:text-lg border-black bg-white dark:bg-zinc-800 text-black dark:text-white shadow-[4px_4px_0_0_black] focus:outline-none focus:ring-0 focus:border-black  dark:focus:border-green-400"
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            placeholder="Type your message here..."
+            rows={4}
+          />
+          <Button onClick={handleSubmit} type="button" className="rounded-none bg-green-300 lg:text-lg hover:bg-green-500 text-black border-2 border-black shadow-brutal">
             Send
           </Button>
         </div>

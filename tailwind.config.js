@@ -4,6 +4,10 @@ module.exports = {
   content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Bricolage Grotesque"', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'monospace'],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -60,6 +64,10 @@ module.exports = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+      },
+      boxShadow: {
+        brutal: '4px 4px 0 0 black',
+        brutalLight: '4px 4px 0 0 white',
       },
     },
   },
