@@ -1,5 +1,5 @@
 import { Moon, Plus, Sun } from 'lucide-react';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Button } from '~/components/ui/button';
 import { SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, Sidebar as SidebarPrimitive } from '~/components/ui/sidebar';
 import { useTheme } from './ThemeProvider';
@@ -8,12 +8,14 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { db } from '~/lib/dexie';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { Link, useLocation } from 'react-router';
 
 export const ChatSidebar = () => {
-  const [activeChat, setActiveChat] = useState<string | null>(null);
+  const [activeThread, setActiveThread] = useState('');
   const { setTheme, theme } = useTheme();
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [textInput, setTextInput] = useState('');
+  const location = useLocation();
 
   const handleToggleTheme = () => {
     if (theme === 'dark') {
@@ -23,7 +25,7 @@ export const ChatSidebar = () => {
     }
   };
 
-  const threads = useLiveQuery(() => db.getAllThreads());
+  const threads = useLiveQuery(() => db.getAllThreads(), []);
 
   const handleCreateThread = () => {
     const threadId = db.createThread(textInput);
@@ -31,6 +33,11 @@ export const ChatSidebar = () => {
     setDialogIsOpen(false);
     setTextInput('');
   };
+
+  useLayoutEffect(() => {
+    const activeThreadId = location.pathname.split('/')[2];
+    setActiveThread(activeThreadId);
+  }, [location.pathname]);
 
   return (
     <>
@@ -72,9 +79,9 @@ export const ChatSidebar = () => {
               <SidebarMenu>
                 {threads?.map((thread) => (
                   <SidebarMenuItem key={thread.id}>
-                    <SidebarMenuButton onClick={() => setActiveChat(thread.id)} isActive={activeChat === thread.id}>
-                      {thread.title}
-                    </SidebarMenuButton>
+                    <Link to={`/thread/${thread.id}`}>
+                      <SidebarMenuButton isActive={thread.id === activeThread}>{thread.title}</SidebarMenuButton>
+                    </Link>
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
