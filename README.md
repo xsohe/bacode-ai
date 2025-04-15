@@ -11,6 +11,18 @@ A fully offline, streaming-capable AI chat UI powered by **Ollama Deepseek-r1 (1
 
 ---
 
+## 📸 Preview
+
+- Onboarding
+
+  <img src="./public/images/onboarding-page.png" alt="Click to preview" />
+
+- Chat
+
+  <img src="./public/images/chat-page.png" alt="Click to preview" />
+
+---
+
 ## 🚀 Features
 
 - 🔍 **Deepseek AI (Ollama 1.5B)** — lightweight and efficient LLM.
