@@ -4,6 +4,8 @@ import { Button } from '~/components/ui/button';
 import { Textarea } from '~/components/ui/textarea';
 import ollama from 'ollama';
 import { ThoughtMessage } from '~/components/ThoughtMessage';
+import { db } from '~/lib/dexie';
+import { useParams } from 'react-router';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -14,8 +16,16 @@ const ChatPage = () => {
   const [messageInput, setMessageInput] = useState('');
   const [streamedMessage, setStreamedMessage] = useState('');
   const [thoughtMessage, setThoughtMessage] = useState('');
+  const param = useParams();
 
   const handleSubmit = async () => {
+    await db.createMessage({
+      content: messageInput,
+      thought: '',
+      role: 'user',
+      thread_id: param.threadId as string,
+    });
+
     const stream = await ollama.chat({
       model: 'deepseek-r1:1.5b',
       messages: [
@@ -26,7 +36,6 @@ const ChatPage = () => {
       ],
       stream: true,
     });
-    alert('chat');
 
     // output mode
     // 1. mode mikir (thought) -> ketemu </think>
@@ -54,6 +63,13 @@ const ChatPage = () => {
         setStreamedMessage(fullContent);
       }
     }
+
+    await db.createMessage({
+      content: fullContent,
+      thought: thoughtContent,
+      role: 'assistant',
+      thread_id: param.threadId as string,
+    });
   };
 
   // This would typically come from a state management solution or props
