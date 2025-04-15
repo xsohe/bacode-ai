@@ -1,4 +1,4 @@
-# 🧠 Deepseek Chat UI
+# 🧠 Bacode AI
 
 A fully offline, streaming-capable AI chat UI powered by **Ollama Deepseek-r1 (1.5B parameters)**, built with **React (Vite)**, **TypeScript**, and styled using **Tailwind CSS + ShadCN**.
 
@@ -8,9 +8,6 @@ A fully offline, streaming-capable AI chat UI powered by **Ollama Deepseek-r1 (1
 ![React](https://img.shields.io/badge/React-%2320232a?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-%2306B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![IndexedDB](https://img.shields.io/badge/Storage-IndexedDB-orange?style=for-the-badge)
-![Offline](https://img.shields.io/badge/Offline-Full-green?style=for-the-badge)
-![License](https://img.shields.io/github/license/your-username/your-repo?style=for-the-badge)
 
 ---
 
@@ -46,8 +43,8 @@ A fully offline, streaming-capable AI chat UI powered by **Ollama Deepseek-r1 (1
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/deepseek-chat-ui.git
-cd deepseek-chat-ui
+git clone https://github.com/xsohe/bacode-ai.git
+cd bacode-ai
 ```
 
 ### 2. Clone the repo
@@ -66,7 +63,7 @@ npm run dev
 yarn dev
 ```
 
-### 4. Download the model Deepsek-r1
+### 4. Download the model deepseek-r1
 
 ```bash
 visit: https://ollama.com/library/deepseek-r1
